@@ -1,0 +1,38 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+data = pd.read_csv("churn.csv")
+data = data.drop(data.columns[0], axis = 1)
+
+data.info()
+data.head()
+data.isna().sum()
+
+data.columns
+
+
+df_pie = data.groupby("Attrition_Flag").size().to_frame(' ')
+plt.pie([1627, 8500], labels = ['Attrited Customer', 'Existing Customer'], colors = sns.color_palette('Set2'), autopct='%.0f%%')
+
+data["Total_Relationship_Count"].value_counts()
+df_plt3 = data[data['Total_Relationship_Count'].isin([1,2,3,4,5,6])]
+sns.countplot(data = df_plt3, x = "Total_Relationship_Count", hue="Attrition_Flag", palette="Set2")  
+
+data["Contacts_Count_12_mon"].value_counts()
+df_plt4 = data[data['Contacts_Count_12_mon'].isin([0,1,2,3,4,5,6])]
+sns.countplot(data = df_plt4, x = "Contacts_Count_12_mon", hue="Attrition_Flag", palette="Set2")  
+
+data["Card_Category"].value_counts()
+df_plt5 = data[data['Card_Category'].isin(["Blue", "Silver", "Gold", "Platinum"])]
+sns.countplot(data = df_plt4, x = "Card_Category", hue="Attrition_Flag", palette="Set2")  
+
+sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+
+ax = sns.boxplot(x = data['Credit_Limit'])
+ax2 = sns.boxplot(x = data['Total_Trans_Amt'])
+ax4 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
