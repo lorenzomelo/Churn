@@ -17,6 +17,13 @@ data.columns
 df_pie = data.groupby("Attrition_Flag").size().to_frame(' ')
 plt.pie([1627, 8500], labels = ['Attrited Customer', 'Existing Customer'], colors = sns.color_palette('Set2'), autopct='%.0f%%')
 
+df_plt = data[data['Attrition_Flag'].isin(['Attrited Customer', 'Existing Customer']) ]
+ax = sns.countplot(data = df_plt, x = "Attrition_Flag", hue="Attrition_Flag", palette="Set2")
+n_records = float(len(data))
+for p in ax.patches:
+    height = p.get_height()
+    ax.text(p.get_x()+p.get_width()/2., height + 1, '{:1.2%}'.format(height/n_records), ha="center", fontsize =7)
+ 
 data["Total_Relationship_Count"].value_counts()
 df_plt3 = data[data['Total_Relationship_Count'].isin([1,2,3,4,5,6])]
 sns.countplot(data = df_plt3, x = "Total_Relationship_Count", hue="Attrition_Flag", palette="Set2")  
@@ -29,10 +36,14 @@ data["Card_Category"].value_counts()
 df_plt5 = data[data['Card_Category'].isin(["Blue", "Silver", "Gold", "Platinum"])]
 sns.countplot(data = df_plt4, x = "Card_Category", hue="Attrition_Flag", palette="Set2")  
 
-sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
-sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
-sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack") # Try to unstack
+sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack") # Try to unstack
+sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack") # Try to unstack
 
-ax = sns.boxplot(x = data['Credit_Limit'])
-ax2 = sns.boxplot(x = data['Total_Trans_Amt'])
-ax4 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
+data["Months_on_book"].value_counts()
+
+#ax = sns.boxplot(x = data['Credit_Limit'])
+
+#ax2 = sns.boxplot(x = data['Total_Trans_Amt'])
+#ax4 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
+
