@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -36,14 +35,11 @@ data["Card_Category"].value_counts()
 df_plt5 = data[data['Card_Category'].isin(["Blue", "Silver", "Gold", "Platinum"])]
 sns.countplot(data = df_plt4, x = "Card_Category", hue="Attrition_Flag", palette="Set2")  
 
-sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack") # Try to unstack
-sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack") # Try to unstack
-sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack") # Try to unstack
+sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+ax = sns.boxplot(x = data['Credit_Limit'])
 
-data["Months_on_book"].value_counts()
+sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+ax2 = sns.boxplot(x = data['Total_Trans_Amt'])
 
-#ax = sns.boxplot(x = data['Credit_Limit'])
-
-#ax2 = sns.boxplot(x = data['Total_Trans_Amt'])
-#ax4 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
-
+sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
+ax4 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
