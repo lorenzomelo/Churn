@@ -1,10 +1,11 @@
+import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 
 data = pd.read_csv("churn.csv")
-data = data.drop(data.columns[0], axis = 1)
+data = data.drop(data.columns[0:2], axis = 1)
 
 data.info()
 data.head()
@@ -14,7 +15,7 @@ data.columns
 
 
 df_pie = data.groupby("Attrition_Flag").size().to_frame(' ')
-plt.pie([1627, 8500], labels = ['Attrited Customer', 'Existing Customer'], colors = sns.color_palette('Set2'), autopct='%.0f%%')
+plt.pie([1627, 8500], labels = ['Attrited Customer', 'Existing Customer'], colors = sns.color_palette('hls'), autopct='%.0f%%')
 
 df_plt = data[data['Attrition_Flag'].isin(['Attrited Customer', 'Existing Customer']) ]
 ax = sns.countplot(data = df_plt, x = "Attrition_Flag", hue="Attrition_Flag", palette="Set2")
@@ -35,11 +36,22 @@ data["Card_Category"].value_counts()
 df_plt5 = data[data['Card_Category'].isin(["Blue", "Silver", "Gold", "Platinum"])]
 sns.countplot(data = df_plt4, x = "Card_Category", hue="Attrition_Flag", palette="Set2")  
 
-sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
-ax = sns.boxplot(x = data['Credit_Limit'])
+sns.histplot(data = data, x = "Total_Trans_Amt", hue = 'Attrition_Flag', multiple="stack", palette="Set2", kde=True) 
+ax = sns.boxplot(x = data['Total_Trans_Amt'])
 
-sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
-ax2 = sns.boxplot(x = data['Total_Trans_Amt'])
+sns.histplot(data = data, x = "Avg_Utilization_Ratio", hue = 'Attrition_Flag', multiple="stack", palette="Set2", kde=True) 
+ax2 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
 
-sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack", palette="Set2") # Try to unstack
-ax4 = sns.boxplot(x = data['Avg_Utilization_Ratio'])
+sns.histplot(data = data, x = "Credit_Limit", hue = 'Attrition_Flag', multiple="stack", palette="Set2", kde=True) 
+ax4 = sns.boxplot(x = data['Credit_Limit'])
+
+ax5 = sns.boxplot(x = data['Months_on_book'])
+ax6 = sns.boxplot(x = data['Total_Relationship_Count'])
+ax7 = sns.boxplot(x = data['Months_Inactive_12_mon'])
+ax8 = sns.boxplot(x = data['Contacts_Count_12_mon'])
+ax9 = sns.boxplot(x = data['Total_Trans_Ct'])
+
+corr = data.corr()
+ax = sns.heatmap(corr, vmin=-1, vmax=1, center=0, cmap=sns.diverging_palette(20, 220, n=200), square=True)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
+
