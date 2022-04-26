@@ -109,16 +109,16 @@ print("Recall: " + str(recall_score(test_y, y_pred_svc)))
 from sklearn.ensemble import RandomForestClassifier
 
 # tuning
-rf_final = RandomForestClassifier(random_state=0)
-param_grid = {
-    'n_estimators': [100, 500],
-    'max_features': ['auto', 'sqrt', 'log2'],
-    'max_depth': [4, 5, 6, 7, 8],
-    'criterion': ['gini', 'entropy']
-}
-CV_rfc = GridSearchCV(estimator=rf_final, param_grid=param_grid, cv=5)
-CV_rfc.fit(train_X, train_y)
-print(CV_rfc.best_params_)
+#rf_final = RandomForestClassifier(random_state=0)
+#param_grid = {
+#    'n_estimators': [100, 500],
+#    'max_features': ['auto', 'sqrt', 'log2'],
+#    'max_depth': [4, 5, 6, 7, 8],
+#    'criterion': ['gini', 'entropy']
+#}
+#CV_rfc = GridSearchCV(estimator=rf_final, param_grid=param_grid, cv=5)
+#CV_rfc.fit(train_X, train_y)
+#print(CV_rfc.best_params_)
 
 #model
 rfc1=RandomForestClassifier(random_state=0, max_features='auto', n_estimators= 500, max_depth=8, criterion='entropy')
