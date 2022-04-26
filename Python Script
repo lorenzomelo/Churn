@@ -98,10 +98,10 @@ y_pred_svc = svc_model.predict(test_X)
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 accuracy_train = svc_model.score(train_X, train_y)
-print("Accuracy on the training set: " + str(accuracy_train))
-print("Accuracy on the test set: " + str(accuracy_score(test_y, y_pred_svc)))
-print("Precision: " + str(precision_score(test_y, y_pred_svc)))
-print("Recall: " + str(recall_score(test_y, y_pred_svc)))
+print("SVC - Accuracy on the training set: " + str(accuracy_train))
+print("SVC - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred_svc)))
+print("SVC - Precision: " + str(precision_score(test_y, y_pred_svc)))
+print("SVC - Recall: " + str(recall_score(test_y, y_pred_svc)))
 
 
 
@@ -131,3 +131,19 @@ print("Random Forest - Accuracy on the training set: " + str(accuracy_train))
 print("Random Forest - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred)))
 print("Random Forest - Precision: " + str(precision_score(test_y, y_pred)))
 print("Random Forest - Recall: " + str(recall_score(test_y, y_pred)))
+
+
+
+### LOGISTIC REGRESSION ###
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression()
+logreg.fit(train_X, train_y.ravel())
+y_pred_log = logreg.predict(test_X)
+y_pred_log = pd.DataFrame(y_pred_log)
+
+accuracy_train = logreg.score(train_X, train_y)
+print("Accuracy on the training set: " + str(accuracy_train))
+print("Logistic Regression - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred_log)))
+print("Logistic Regression - Precision: " + str(precision_score(test_y, y_pred_log)))
+print("Logistic Regression - Recall: " + str(recall_score(test_y, y_pred_log)))
+
