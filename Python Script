@@ -56,6 +56,7 @@ ax = sns.heatmap(corr, vmin=-1, vmax=1, center=0, cmap=sns.diverging_palette(20,
 ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right')
 
 
+#UNDERSAMPLING
 import random
 class_2,class_1 = data.Attrition_Flag.value_counts()
 c2 = data[data['Attrition_Flag'] == 0]
