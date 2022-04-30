@@ -14,17 +14,7 @@ data.head()
 data.isna().sum()
 
 #%%
-#Outliers
-cols= data.columns
 
-Q1 = data[cols].quantile(0.05)
-Q3 = data[cols].quantile(0.95)
-IQR = Q3 - Q1
-
-data = data[~((data[cols] < (Q1 - 1.5 * IQR)) |(data[cols] > (Q3 + 1.5 * IQR))).any(axis=1)]
-
-#%%
-'''
 df_pie = data.groupby("Attrition_Flag").size().to_frame(' ')
 plt.pie([1627, 8500], labels = ['Attrited Customer', 'Existing Customer'], colors = sns.color_palette('RdBu', 2), autopct='%.0f%%')
 
@@ -61,14 +51,14 @@ ax6 = sns.boxplot(x = data['Total_Relationship_Count'])
 ax7 = sns.boxplot(x = data['Months_Inactive_12_mon'])
 ax8 = sns.boxplot(x = data['Contacts_Count_12_mon'])
 ax9 = sns.boxplot(x = data['Total_Trans_Ct'])
-'''
+
 
 #%%
 data = pd.get_dummies(data, columns = ['Education_Level', 'Gender', 'Marital_Status', 'Income_Category', 'Card_Category'])
 
 replace = {'Existing Customer' : 0, 'Attrited Customer' : 1}
 data = data.replace(replace)
-
+    
 #%%
 '''
 # Mean analysis
@@ -234,4 +224,5 @@ print("Accuracy on the training set: " + str(accuracy_train))
 print("Logistic Regression - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred_log)))
 print("Logistic Regression - Precision: " + str(precision_score(test_y, y_pred_log)))
 print("Logistic Regression - Recall: " + str(recall_score(test_y, y_pred_log)))
+
 
