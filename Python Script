@@ -59,8 +59,9 @@ data = pd.get_dummies(data, columns = ['Education_Level', 'Gender', 'Marital_Sta
 replace = {'Existing Customer' : 0, 'Attrited Customer' : 1}
 data = data.replace(replace)
     
+
 #%%
-'''
+
 # Mean analysis
 avg_df_1 = data.filter(['Attrition_Flag', 'Education_Level_College',
        'Education_Level_Doctorate', 'Education_Level_Graduate',
@@ -85,9 +86,9 @@ columns = list(avg_df_1.columns)
 avg_df_1 = avg_df_1.T
 avg_df_1["variables"] = columns
 avg_df_1["difference"] = abs(avg_df_1[0] - avg_df_1[1])
-sort_df = avg_df_1.sort_values(by=['difference'], ascending=False)
-difference_dataset = sort_df.head(20)
-difference_dataset.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
+sort_df_1 = avg_df_1.sort_values(by=['difference'], ascending=False)
+difference_dataset_1 = sort_df_1.head(20)
+difference_dataset_1.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
 
 avg_df_2 = avg_df_2.groupby('Attrition_Flag').mean()
 avg_df_2.reset_index(drop=True, inplace=True)
@@ -95,9 +96,9 @@ columns = list(avg_df_2.columns)
 avg_df_2 = avg_df_2.T
 avg_df_2["variables"] = columns
 avg_df_2["difference"] = abs(avg_df_2[0] - avg_df_2[1])
-sort_df = avg_df_2.sort_values(by=['difference'], ascending=False)
-difference_dataset = sort_df.head(20)
-difference_dataset.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
+sort_df_2 = avg_df_2.sort_values(by=['difference'], ascending=False)
+difference_dataset_2 = sort_df_2.head(20)
+difference_dataset_2.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
 
 avg_df_3 = avg_df_3.groupby('Attrition_Flag').mean()
 avg_df_3.reset_index(drop=True, inplace=True)
@@ -105,9 +106,9 @@ columns = list(avg_df_3.columns)
 avg_df_3 = avg_df_3.T
 avg_df_3["variables"] = columns
 avg_df_3["difference"] = abs(avg_df_3[0] - avg_df_3[1])
-sort_df = avg_df_3.sort_values(by=['difference'], ascending=False)
-difference_dataset = sort_df.head(20)
-difference_dataset.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
+sort_df_3 = avg_df_3.sort_values(by=['difference'], ascending=False)
+difference_dataset_3 = sort_df_3.head(20)
+difference_dataset_3.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
 
 avg_df_4 = avg_df_4.groupby('Attrition_Flag').mean()
 avg_df_4.reset_index(drop=True, inplace=True)
@@ -115,10 +116,10 @@ columns = list(avg_df_4.columns)
 avg_df_4 = avg_df_4.T
 avg_df_4["variables"] = columns
 avg_df_4["difference"] = abs(avg_df_4[0] - avg_df_4[1])
-sort_df = avg_df_4.sort_values(by=['difference'], ascending=False)
-difference_dataset = sort_df.head(20)
-difference_dataset.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
-'''
+sort_df_4 = avg_df_4.sort_values(by=['difference'], ascending=False)
+difference_dataset_4 = sort_df_4.head(20)
+difference_dataset_4.plot(x="variables", y=[0, 1], kind="barh", color = ["cornflowerblue", "yellowgreen"], figsize = (8,8))
+
 
 #%%
 # Analysis of the correlations
