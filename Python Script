@@ -166,14 +166,16 @@ train_y, train_X = under_data.iloc[train, 0].values, under_data.iloc[train, 1:].
 test_y, test_X = under_data.iloc[test, 0].values, under_data.iloc[test, 1:].values
 print(train_y.shape, train_X.shape, test_y.shape, test_X.shape)
 
-#%%
-### SVC ####
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 train_X = sc.fit_transform(train_X)
 test_X = sc.transform(test_X)
+
+
+#%%
+### SVC ####
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
 
 # tuning
 #modelsvc = SVC()
