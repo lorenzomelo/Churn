@@ -166,17 +166,15 @@ train_y, train_X = under_data.iloc[train, 0].values, under_data.iloc[train, 1:].
 test_y, test_X = under_data.iloc[test, 0].values, under_data.iloc[test, 1:].values
 print(train_y.shape, train_X.shape, test_y.shape, test_X.shape)
 
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 train_X = sc.fit_transform(train_X)
 test_X = sc.transform(test_X)
 
-
 #%%
 ### SVC ####
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
-
 # tuning
 #modelsvc = SVC()
 #param = {'kernel' : ('linear', 'poly', 'rbf', 'sigmoid'),'C' : [1,5,10],'degree' : [3,8],'coef0' : [0.01,10,0.5],'gamma' : ('auto','scale')}
@@ -289,5 +287,98 @@ y_proba_lgr = clf_lgr.predict_proba(test_X)
 y_proba_lgr = pd.DataFrame(y_proba_lgr)
 y_proba_lgr.head()
 #y_proba_lgr['LGR PREDICTION'] = np.where(y_proba_lgr[0] >= 0.5, 0, 1)
+
+
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+
+classifier = Sequential()
+
+classifier.add(Dense(24, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(12, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(12, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(12, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(1, kernel_initializer = 'uniform', activation = 'sigmoid'))
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+classifier.fit(train_X, train_y, batch_size = 20, epochs = 80)
+
+y_pred = classifier.predict(test_X)
+y_pred = (y_pred > 0.5)
+
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(test_y, y_pred)
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+print(accuracy_score(test_y,y_pred))
+print(precision_score(test_y,y_pred))
+print(recall_score(test_y,y_pred))
+
+#%%
+### ARTIFICIAL NEURAL NETWORK
+
+
+# Importing packages and building new classifer with grid search
+from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import GridSearchCV
+from keras.models import Sequential
+from keras.layers import Dense
+
+# Building our Neural Network with empty optimizer, batch size, and epochs
+def build_classifier(optimizer):
+    classifier = Sequential()
+    classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu', input_dim = 33))
+    classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+    classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+    classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+    classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
+    classifier.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = ['accuracy'])
+    return classifier
+classifier = KerasClassifier(build_fn = build_classifier)
+
+# Parameters for batch size, epochs, and optimizer functions
+parameters = {'batch_size': [8, 16, 32, 64],
+              'epochs': [50, 100, 200],
+              'optimizer': ['adam', 'rmsprop']}
+
+# Setting up Grid Search
+grid_search = GridSearchCV(estimator = classifier,
+                           param_grid = parameters,
+                           scoring = 'accuracy',
+                           cv = 10)
+grid_search = grid_search.fit(train_X, train_y)
+best_parameters = grid_search.best_params_
+best_parameters
+best_accuracy = grid_search.best_score_
+best_accuracy
+
+
+#%%
+import tensorflow
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+import random 
+
+classifier = Sequential()
+
+classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu', input_dim = 33))
+classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
+
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+
+classifier.fit(train_X, train_y, batch_size = 64, epochs = 200)
+y_pred = classifier.predict(test_X)
+y_pred = (y_pred > 0.5)
+
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(test_y, y_pred)
+print(accuracy_score(test_y, y_pred))
+print(precision_score(test_y, y_pred))
+print(recall_score(test_y, y_pred))
 
 
