@@ -360,6 +360,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 import random 
 
+np.random.seed(42)
+
 classifier = Sequential()
 
 classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu', input_dim = 33))
