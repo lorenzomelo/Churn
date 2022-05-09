@@ -245,11 +245,11 @@ plt.xlabel('true label')
 plt.ylabel('predicted label')
 
 from sklearn.calibration import CalibratedClassifierCV
-clf_svm = CalibratedClassifierCV(svc_model, cv=3) 
-clf_svm.fit(train_X, train_y)
-y_proba_svm = clf_svm.predict_proba(test_X)
-y_proba_svm = pd.DataFrame(y_proba_svm)
-y_proba_svm.head()
+clf_svc = CalibratedClassifierCV(svc_model, cv=3) 
+clf_svc.fit(train_X, train_y)
+y_proba_svc = clf_svc.predict_proba(test_X)
+y_proba_svc = pd.DataFrame(y_proba_svc)
+y_proba_svc.head()
 #y_proba_svm['SVM PREDICTION'] = np.where(y_proba_svm[0] >= 0.5, 0, 1)
 
 
@@ -272,14 +272,7 @@ from sklearn.ensemble import RandomForestClassifier
 #model
 rfc1=RandomForestClassifier(random_state=0, max_features='auto', n_estimators= 500, max_depth=8, criterion='entropy')
 rfc1.fit(train_X, train_y)
-y_pred = rfc1.predict(test_X)
-
-#ACCURACY
-accuracy_train = rfc1.score(train_X, train_y)
-print("Random Forest - Accuracy on the training set: " + str(accuracy_train))
-print("Random Forest - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred)))
-print("Random Forest - Precision: " + str(precision_score(test_y, y_pred)))
-print("Random Forest - Recall: " + str(recall_score(test_y, y_pred)))
+y_pred_rf = rfc1.predict(test_X)
 
 rfc1.feature_importances_
 sorted_idx = rfc1.feature_importances_.argsort()
@@ -310,6 +303,18 @@ sns.set(font_scale=0.3)
 plt.rcParams['figure.dpi'] = 300
 plt.show()
 
+#ACCURACY
+accuracy_train = rfc1.score(train_X, train_y)
+print("Random Forest - Accuracy on the training set: " + str(accuracy_train))
+print("Random Forest - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred_rf)))
+print("Random Forest - Precision: " + str(precision_score(test_y, y_pred_rf)))
+print("Random Forest - Recall: " + str(recall_score(test_y, y_pred_rf)))
+
+mat = confusion_matrix(test_y, y_pred_rf)
+sns.heatmap(mat.T, square=True, annot=True, fmt='d', cbar=False)
+plt.xlabel('true label')
+plt.ylabel('predicted label')
+
 clf_rf = CalibratedClassifierCV(rfc1, cv=3) 
 clf_rf.fit(train_X, train_y)
 y_proba_rf = clf_rf.predict_proba(test_X)
@@ -330,6 +335,11 @@ print("Accuracy on the training set: " + str(accuracy_train))
 print("Logistic Regression - Accuracy on the test set: " + str(accuracy_score(test_y, y_pred_log)))
 print("Logistic Regression - Precision: " + str(precision_score(test_y, y_pred_log)))
 print("Logistic Regression - Recall: " + str(recall_score(test_y, y_pred_log)))
+
+mat = confusion_matrix(test_y, y_pred_log)
+sns.heatmap(mat.T, square=True, annot=True, fmt='d', cbar=False)
+plt.xlabel('true label')
+plt.ylabel('predicted label')
 
 clf_lgr = CalibratedClassifierCV(logreg, cv=3) 
 clf_lgr.fit(train_X, train_y)
@@ -396,12 +406,17 @@ classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'si
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
 classifier.fit(train_X, train_y, batch_size = 64, epochs = 200)
-y_pred = classifier.predict(test_X)
-y_pred = (y_pred > 0.5)
+y_pred_ann = classifier.predict(test_X)
+y_pred_ann = (y_pred_ann > 0.5)
 
 from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(test_y, y_pred)
-print(accuracy_score(test_y, y_pred))
-print(precision_score(test_y, y_pred))
-print(recall_score(test_y, y_pred))
+cm = confusion_matrix(test_y, y_pred_ann)
+print("ANN - Accuracy on the test set: ", accuracy_score(test_y, y_pred_ann))
+print("ANN - Precision: ", precision_score(test_y, y_pred_ann))
+print("ANN - Recall: ", recall_score(test_y, y_pred_ann))
+
+mat = confusion_matrix(test_y, y_pred_ann)
+sns.heatmap(mat.T, square=True, annot=True, fmt='d', cbar=False)
+plt.xlabel('true label')
+plt.ylabel('predicted label')
 
