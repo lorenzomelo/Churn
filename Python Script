@@ -195,7 +195,7 @@ total = dict(zip(n,n_accuracy))
 arg_max = [i for i in range(len(n_accuracy)) if n_accuracy[i] == np.max(n_accuracy)]
 print('Number of neighbors that maximizes test accuracy:', n[arg_max[0]])
 
-knn_model = KNeighborsClassifier(n_neighbors = 45)
+knn_model = KNeighborsClassifier(n_neighbors = n[arg_max[0]])
 knn_model.fit(train_X, train_y)
 predicted_churn = clf.predict(test_X)
 
