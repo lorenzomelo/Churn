@@ -9,40 +9,26 @@ To fully achieve our goal, it is crucial to start with a comprehensive Explorato
 The data provided consists of 10,127 observations for each of which there are 17 different features:
 
 ● Basic info:
-
-○ CLIENTNUM: Unique identifier for the customer holding the account.
+- CLIENTNUM: Unique identifier for the customer holding the account.
 
 ● Target:
-
-○ Attrition_Flag: Specifies whether the account was closed (Attrited Customer).
+- Attrition_Flag: Specifies whether the account was closed (Attrited Customer).
 
 ● Demographic Variables:
-
-○ Customer_Age: Demographic variable - Customer's Age in Years.
-
-○ Gender: Demographic variable - M=Male, F=Female.
-
-○ Dependent_count: Demographic variable - Number of dependents.
-
-○ Education_Level: Demographic variable - Educational Qualification of the account holder (example: high school, college graduate, etc.).
-
-○ Marital_Status: Demographic variable - Married, Single, Divorced, Unknown.
-
-○ Income_Category: Demographic variable - Annual Income Category of the account holder (< 40K, 40K - 60K, 60K−80K, ... ).
+- Customer_Age: Demographic variable - Customer's Age in Years.
+- Gender: Demographic variable - M=Male, F=Female.
+- Dependent_count: Demographic variable - Number of dependents.
+- Education_Level: Demographic variable - Educational Qualification of the account holder (example: high school, college graduate, etc.).
+- Marital_Status: Demographic variable - Married, Single, Divorced, Unknown.
+- Income_Category: Demographic variable - Annual Income Category of the account holder (< 40K, 40K - 60K, 60K−80K, ... ).
 
 ● Variables (Product):
-
-○ Card_Category: Product Variable - Type of Card (Blue, Silver, Gold, Platinum). ○ Months_on_book: Period of relationship with the bank.
-
-○ Total_Relationship_Count: Total no. of products held by the customer.
-
-○ Months_Inactive_12_mon: No. of Months in the last 12 months.
-
-○ Contacts_Count_12_mon: No. of Contacts in the last 12 months. ○ Credit_Limit: Credit Limit on the Credit Card.
-
-○ Total_Trans_Amt: Total Transaction Amount (Last 12 months). ○ Total_Trans_Ct: Total Transaction Count (Last 12 months).
-
-○ Avg_Utilization_Ratio: Average Card Utilization Ratio.
+- Card_Category: Product Variable - Type of Card (Blue, Silver, Gold, Platinum). ○ Months_on_book: Period of relationship with the bank.
+- Total_Relationship_Count: Total no. of products held by the customer.
+- Months_Inactive_12_mon: No. of Months in the last 12 months.
+- Contacts_Count_12_mon: No. of Contacts in the last 12 months. ○ Credit_Limit: Credit Limit on the Credit Card.
+- Total_Trans_Amt: Total Transaction Amount (Last 12 months). ○ Total_Trans_Ct: Total Transaction Count (Last 12 months).
+- Avg_Utilization_Ratio: Average Card Utilization Ratio.
 
 ### 2.1 Data Visualisation
 The following figures represent the relation between the variable ‘Attrition Flag’ and most of the other variables that are present in the dataset.
